@@ -76,8 +76,8 @@ All available binaries are located under /Projects/STM32_Copro_Wireless_Binaries
 
 In order to make the program work, you must do the following:
  - Open your toolchain 
- - Rebuild all files and flash the board with the executable file
- - Or use the FUS_CLI_reference.bin from Binary directory
+ - Rebuild all files and flash the board with the executable file at 0x08000000
+ - Or use the FUS_CLI_reference.bin from Binary directory and flash the binary at 0x08000000
  - Run the application
 
 On the Nucleo board side:
@@ -92,10 +92,10 @@ On the PC side:
    Data Flow Control None
    
 Once the board is flashed, the application displays wireless FW versions and the possible actions on hyperterminal like this:
- - Press SW1 to delete the installed Wireless Stack
- - Press SW2 to install the CPU2 update (either FUS or Wireless Stack)
+ - Short press SW1 to delete the installed Wireless Stack
+ - Short press SW2 to install the CPU2 update (either FUS or Wireless Stack)
  - Short press SW3 to switch between FUS and Wireless Stack
- - Long press SW3 to delete all sectors between 0x08008000 and SFSA
+ - Long press SW3 until blue LED is ON and then release SW3 to delete all sectors between 0x08008000 and SFSA
  
 There is also LED indications:
  - When the wireless stack is running, the green led flashes slowly
@@ -105,16 +105,16 @@ There is also LED indications:
 
 In order to perform a FUS or a Wireless Stack Firmware update:
  - Download the wireless stack or the FUS image from www.st.com or from the STM32CubeMX repository
- - Long press on SW3 until blue LED is ON to delete all flash sectors between 0x08008000 and SFSA
- - Wait few seconds until blue LED is OFF
+ - Long press on SW3 until blue LED is ON and then release SW3 to delete all flash sectors between 0x08008000 and SFSA
+ - Sectors are deleted when the blue LED is OFF
  - Write the FW image in the user Flash memory at an address between 0x08008000 (end of application address) and the secure part (see SFSA option byte) minus the image size
    using erase and programming tab of STM32CubeProgrammer. Image start address must be aligned to sector start address (this is a multiple of 4-kbytes).
- - Reset the board thanks to reset button SW4   
- - Press SW2 to install the CPU2 update
+ - Reset the board thanks to a short press on reset button SW4   
+ - Short press on SW2 to install the CPU2 update
    - For wireless stack update:
       - If there is no wireless stack installed, the new FW will be installed at the download address.
       - If there is already a wireless stack, the new FW will be installed at the optimal address
- - Wait few seconds until blue LED is OFF, firwmare is updated
+ - Firmware is updated when the blue LED is OFF
 
 For more details refer to the Application Note: 
   AN5185 - ST firmware upgrade services for STM32WB Series
